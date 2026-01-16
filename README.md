@@ -1,53 +1,85 @@
 <div align="center">
 
-# DEEZSTER
+# 💿 DEEZSTER 2.3
+### Die ultimative Musik-Timeline & Highscore Challenge
 
-<img src="logo.png" alt="Deezster Logo" width="300" height="auto">
+![Deezster Logo](logo.png)
+*(Füge hier dein Logo ein oder lösche die Zeile)*
 
-### Das Musik-Quiz für die Hosentasche.
-### Errate das Jahr, powered by Deezer.
-
-[Live Demo ansehen](https://bastiancurth.github.io/dezzster/)
+[**🔴 LIVE DEMO HIER KLICKEN**](https://DEIN-USERNAME.github.io/DEIN-REPO-NAME/)
 
 </div>
 
 ---
 
-## 🎵 Über das Projekt
+## 🎵 Was ist Deezster?
 
-**Deezster** ist ein interaktives Musik-Quiz, inspiriert von dem bekannten Brettspiel "Hitster". Es ist eine One-Page Web-App, die du im Browser auf deinem Handy oder Desktop spielen kannst.
+**Deezster** ist eine interaktive Musik-Quiz-App, die direkt im Browser läuft. Inspiriert vom Brettspiel "Hitster", nutzt sie die riesige Bibliothek von Deezer, um deine Musikkenntnisse auf die Probe zu stellen.
 
-Das Ziel ist simpel: Du hörst einen 30-sekündigen Ausschnitt eines Songs und musst erraten, in welchem Jahr er veröffentlicht wurde. Je näher du dran bist, desto besser!
+Die Version 2.3 kommt im modernen **"Premium Glass"-Design**, bietet zwei völlig unterschiedliche Spielmodi und eine intelligente Logik, um echte Aufnahmejahre von Remasters zu unterscheiden.
 
 ## ✨ Features
 
-* **Keine Anmeldung nötig:** Sofort loslegen.
-* **Deezer Integration:** Nutze die riesige Musikbibliothek von Deezer.
-* **Playlist Suche:** Suche direkt in der App nach Playlists (z.B. "80er Rock", "Disney", "Techno Bunker") oder nutze die vorgegebenen Vorschläge.
-* **Responsive Design:** Sieht auf dem Smartphone aus wie eine native App.
-* **Vinyl Animation:** Eine sich drehende Schallplatte zeigt an, wenn Musik spielt.
-* **Direktes Feedback:** Farbliche Markierung, wie nah dein Tipp am richtigen Jahr lag.
+* **2 Spielmodi:** Wähle zwischen strategischem Einordnen (Timeline) oder schnellem Wissen (Highscore).
+* **Smart Year Detection:** Ein Algorithmus prüft ISRC-Daten, um das *echte* Aufnahmejahr zu finden, selbst wenn das Album ein "Remaster 2011" ist.
+* **Kein Login nötig:** Sofort loslegen, keine Anmeldung bei Deezer erforderlich.
+* **Deezer Integration:** Zugriff auf Millionen von Songs und 30-Sekunden-Previews.
+* **Responsive Design:** Fühlt sich auf dem Smartphone wie eine native App an.
+* **Visuelle Effekte:** Animierte Vinyl-Platten, dynamische Hintergründe und Glassmorphism-UI.
 
-## 🛠️ Technologie-Stack
+---
 
-Das Projekt ist bewusst simpel gehalten und kommt ohne eigenes Backend aus ("Serverless").
+## 🎮 Die Spielmodi
 
-* **Frontend:** Reines HTML5, CSS3 und Vanilla JavaScript (keine Frameworks).
-* **Datenquelle:** Öffentliche [Deezer API](https://developers.deezer.com/api) (für Songs, Cover und Hörproben).
-* **Proxy:** Nutzt einen öffentlichen CORS-Proxy (z.B. `allorigins.win`), um API-Anfragen direkt aus dem Browser zu ermöglichen.
+### 1. 📅 Timeline Modus (Das Original)
+Das klassische Prinzip für Strategen.
+* **Ziel:** Ordne Songs chronologisch auf deinem Zeitstrahl ein.
+* **Ablauf:** Du hörst einen Song und musst entscheiden: War er *vor* oder *nach* den Songs, die schon liegen? Oder genau dazwischen?
+* **Regeln:** Du hast **3 Leben**. Ein Fehler kostet ein Herz.
+* **Gewinnbedingung:** Erreiche das Ziel von 10, 15 oder 20 korrekten Karten (einstellbar).
 
-## 🚀 Installation & Nutzung lokal
+### 2. ⚡ Highscore Jagd (Quiz)
+Das schnelle Spiel für Zwischendurch ("Sudden Death").
+* **Ziel:** Errate den Songtitel aus 4 Möglichkeiten.
+* **Score-System:** Je schneller du antwortest, desto mehr Punkte gibt es (Max. 1000 pro Song).
+* **Regeln:** Ein einziger Fehler bedeutet sofortiges **Game Over**!
+* **Visuals:** Ein Timer-Balken zeigt dir den Zeitdruck an.
 
-Da es sich um eine statische Seite handelt, ist die "Installation" sehr einfach:
+---
 
-1.  **Repository klonen:**
-    ```bash
-    git clone [https://github.com/DEIN-USERNAME/DEIN-REPO-NAME.git](https://github.com/DEIN-USERNAME/DEIN-REPO-NAME.git)
-    ```
-2.  **Ordner öffnen:**
-    Navigiere in den heruntergeladenen Ordner.
-3.  **Starten:**
-    Öffne einfach die Datei `index.html` in deinem bevorzugten Webbrowser (Chrome, Firefox, Edge, Safari).
+## 🛠️ Technologie & Setup
+
+Das Projekt ist "Serverless" und läuft zu 100% im Client (Browser).
+
+* **Frontend:** HTML5, CSS3, Vanilla JavaScript.
+* **API:** Deezer API (via JSONP für CORS-Umgehung ohne Proxy).
+* **Hosting:** Optimiert für **GitHub Pages**.
+
+### Installation (Eigene Version hosten)
+
+1.  **Repository erstellen:** Erstelle ein neues Repo auf GitHub.
+2.  **Dateien hochladen:** Lade die `index.html` (und optional ein `logo.png`) hoch.
+3.  **Pages aktivieren:**
+    * Gehe im Repo zu `Settings` -> `Pages`.
+    * Wähle unter "Branch" `main` (oder `master`) und speichere.
+4.  **Fertig:** Nach ca. 1 Minute ist dein Spiel unter `https://deinuser.github.io/deinrepo/` erreichbar.
+
+---
+
+## 🤓 Für Entwickler: Der "Remaster-Fix"
+
+Ein häufiges Problem bei Musik-APIs ist, dass bei "Best Of" Alben das Jahr der Compilation (z.B. 2010) statt des Songs (z.B. 1975) geliefert wird.
+
+Deezster 2.3 löst das durch einen **ISRC-Check**:
+1.  Die App holt das Album-Datum.
+2.  Sie prüft den ISRC-Code des Tracks (Zeichen 6 & 7 stehen oft für das Jahr).
+3.  Sie vergleicht beide und wählt intelligent das **ältere, plausible Jahr** aus.
+
+```javascript
+// Beispiel Logik
+if (isrcYear < albumYear && isrcYear > 1900) {
+    finalYear = isrcYear; // Nimm das echte Aufnahmejahr!
+}
 
 ## ⚠️ Wichtiger Hinweis zur API
 
