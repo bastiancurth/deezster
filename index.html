@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Deezster Live</title>
+    <title>Deezster 2.0</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. DAS BOPSTER-DESIGN (CSS) --- */
+        /* --- CSS DESIGN (Bopster Style) --- */
         :root {
             --primary: #23a6d5;
             --secondary: #e73c7e;
-            --text-color: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: 1px solid rgba(255, 255, 255, 0.2);
             --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
@@ -19,432 +18,571 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
 
-        /* Animierter Hintergrund wie bei Bopster */
         body {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            color: var(--text-color);
+            color: white;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center; /* Zentriert den Inhalt vertikal */
-            padding: 20px;
+            align-items: center;
+            padding: 10px;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* Der Glass-Container (die "Karte") */
         .app-container {
-            width: 100%;
-            max-width: 500px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: var(--glass-border);
-            border-radius: 24px;
-            box-shadow: var(--glass-shadow);
-            padding: 30px 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            transition: height 0.3s ease;
+            width: 100%; max-width: 600px;
+            background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: var(--glass-border); border-radius: 24px; box-shadow: var(--glass-shadow);
+            padding: 20px; text-align: center; position: relative; overflow: hidden;
+            display: flex; flex-direction: column; max-height: 90vh;
         }
 
-        /* Glanzeffekt oben */
-        .app-container::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+        h1 { font-size: 2rem; font-weight: 800; text-shadow: 0 0 10px rgba(0,0,0,0.2); margin-bottom: 5px; }
+        h1 span { text-shadow: 0 0 15px var(--primary); }
+        h3 { margin-bottom: 15px; opacity: 0.9; }
+
+        /* Inputs & Buttons */
+        input, select {
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.2); color: white; font-size: 1rem; margin-bottom: 10px; outline: none; text-align: center;
         }
-
-        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 5px; text-shadow: 0 0 10px rgba(0,0,0,0.2); }
-        h1 span { color: #fff; text-shadow: 0 0 15px var(--primary); }
-        p.subtitle { opacity: 0.8; margin-bottom: 25px; font-size: 0.9rem; }
-
-        /* Eingabefelder im Glass-Look */
-        input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(0, 0, 0, 0.2);
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            outline: none;
-            transition: all 0.2s;
-            text-align: center;
-        }
-        input:focus { background: rgba(0, 0, 0, 0.4); border-color: white; }
-        input::placeholder { color: rgba(255, 255, 255, 0.6); }
-
-        /* Buttons im Bopster-Stil */
         .btn {
-            width: 100%;
-            padding: 14px;
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.2);
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            margin-bottom: 10px;
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2);
+            font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 8px;
         }
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.25);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
+        .btn-primary { background: rgba(255, 255, 255, 0.25); color: white; }
         .btn-primary:hover { background: rgba(255, 255, 255, 0.4); transform: translateY(-2px); }
         .btn-secondary { background: rgba(0, 0, 0, 0.3); color: white; }
-        .btn-icon { width: 50px; padding: 0; border-radius: 50%; height: 50px; font-size: 1.2rem; display: inline-flex; }
+        .btn-danger { background: rgba(231, 76, 60, 0.6); color: white; }
+        .btn-success { background: rgba(46, 204, 113, 0.6); color: white; }
 
-        /* Playlist Liste */
-        #playlist-list {
-            max-height: 300px; overflow-y: auto; text-align: left; margin-top: 10px;
-            scrollbar-width: none; /* Firefox */
-        }
-        #playlist-list::-webkit-scrollbar { display: none; /* Chrome */ }
-
+        /* Playlist List */
+        #playlist-list { max-height: 200px; overflow-y: auto; margin-top: 10px; }
         .playlist-item {
-            display: flex; align-items: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px; margin-bottom: 8px;
-            border-radius: 12px; cursor: pointer;
-            transition: background 0.2s; border: 1px solid transparent;
+            display: flex; align-items: center; background: rgba(255,255,255,0.1);
+            padding: 8px; margin-bottom: 6px; border-radius: 8px; cursor: pointer;
         }
-        .playlist-item:hover { background: rgba(255, 255, 255, 0.25); border-color: rgba(255,255,255,0.3); }
-        .playlist-item img { width: 45px; height: 45px; border-radius: 8px; margin-right: 12px; }
-        .playlist-info h4 { font-size: 0.95rem; margin-bottom: 2px; }
-        .playlist-info span { font-size: 0.75rem; opacity: 0.7; }
+        .playlist-item img { width: 40px; height: 40px; border-radius: 6px; margin-right: 10px; }
+        .playlist-info { text-align: left; }
+        .playlist-info h4 { font-size: 0.9rem; margin: 0; }
+        .playlist-info span { font-size: 0.7rem; opacity: 0.7; }
 
-        /* Vinyl Animation (Klassisch Hitster) */
-        .vinyl-wrapper {
-            margin: 20px auto;
-            width: 220px; height: 220px;
-            position: relative;
-        }
+        /* Game Elements */
+        .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .lives { color: #ff6b6b; font-size: 1.2rem; }
+        .score-display { font-weight: bold; }
+
+        /* Vinyl Player (Small) */
+        .vinyl-wrapper-sm { width: 120px; height: 120px; margin: 10px auto; position: relative; }
         .vinyl {
-            width: 100%; height: 100%;
-            background: radial-gradient(#333, #111);
-            border-radius: 50%;
-            border: 4px solid #111;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            position: relative;
+            width: 100%; height: 100%; background: radial-gradient(#333, #111);
+            border-radius: 50%; border: 2px solid #111; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
-        /* Rillen-Effekt */
-        .vinyl::after {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 50%;
-            background: repeating-radial-gradient(#111 0, #111 2px, #222 3px, #222 4px);
-            opacity: 0.6;
-        }
-        .vinyl-label {
-            width: 80px; height: 80px;
-            background: var(--primary); /* Label Farbe */
-            border-radius: 50%;
-            z-index: 2;
-            border: 2px solid white;
-            background-size: cover;
-            background-position: center;
-        }
+        .vinyl-label { width: 40%; height: 40%; background: var(--primary); border-radius: 50%; border: 2px solid white; background-size: cover; }
         .spinning { animation: spin 4s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* Ergebnis Karte */
-        .result-card {
-            background: rgba(0,0,0,0.3);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 15px;
-            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        /* MULTIPLE CHOICE GRID */
+        .mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
+        .mc-btn { height: 80px; font-size: 0.9rem; white-space: normal; line-height: 1.2; }
 
-        .year-big { font-size: 3.5rem; font-weight: 800; margin: 10px 0; display: block; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        .cover-large { width: 150px; height: 150px; border-radius: 12px; margin: 10px auto; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: block; }
+        /* TIMELINE CONTAINER */
+        .timeline-container {
+            display: flex; flex-direction: column; gap: 10px;
+            overflow-y: auto; max-height: 50vh; padding: 10px;
+            background: rgba(0,0,0,0.1); border-radius: 12px;
+        }
+        .timeline-card {
+            background: white; color: black; padding: 10px; border-radius: 8px;
+            display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .timeline-year { font-weight: 800; font-size: 1.2rem; color: var(--primary); min-width: 50px; }
+        .timeline-info { text-align: left; flex-grow: 1; font-size: 0.85rem; }
+        .insert-btn {
+            background: rgba(255,255,255,0.2); border: 2px dashed rgba(255,255,255,0.4);
+            color: white; padding: 8px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .insert-btn:hover { background: rgba(255,255,255,0.4); color: black; border-style: solid; }
 
         /* Utility */
         .hidden { display: none !important; }
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.1); border-top: 4px solid #fff;
-            border-radius: 50%; width: 40px; height: 40px;
-            animation: spin 1s linear infinite; margin: 20px auto;
+        .modal-overlay {
+            position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.8);
+            display: flex; align-items: center; justify-content: center; z-index: 10;
+            backdrop-filter: blur(5px);
         }
-        .controls { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .spinner {
+            border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #fff;
+            border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto;
+        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
+
         <header>
             <h1>Deez<span>ster</span></h1>
-            <p class="subtitle">Timeline Music Quiz</p>
         </header>
 
-        <div id="start-screen">
-            <div style="font-size: 4rem; margin-bottom: 20px;">🎵</div>
-
+        <div id="screen-search">
+            <p>Wähle eine Playlist:</p>
             <input type="text" id="search-input" placeholder="Suche (z.B. 80s, Rock, Disney)...">
-            <button id="search-btn" class="btn btn-primary"><i class="fas fa-search"></i> Suchen</button>
+            <button id="search-btn" class="btn btn-primary">Suchen</button>
 
-            <div style="margin-top: 20px; text-align: left;">
-                <p style="font-size: 0.8rem; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 10px; font-weight: bold;">Empfohlene Playlists</p>
-                <div id="playlist-list">
-                    </div>
+            <div id="playlist-list">
+                <div class="playlist-item" onclick="selectPlaylist('3155776842', '100% Hits')">
+                    <img src="https://e-cdns-images.dzcdn.net/images/playlist/89f6dfc009b0b43d2c0024440f340864/250x250-000000-80-0-0.jpg">
+                    <div class="playlist-info"><h4>100% Hits</h4><span>Charts</span></div>
+                </div>
+                <div class="playlist-item" onclick="selectPlaylist('1363560485', 'Best of 80s')">
+                    <img src="https://e-cdns-images.dzcdn.net/images/playlist/73252538cb1235b2210a693c061d4b68/250x250-000000-80-0-0.jpg">
+                    <div class="playlist-info"><h4>Best of 80s</h4><span>Klassiker</span></div>
+                </div>
             </div>
         </div>
 
-        <div id="loader" class="hidden">
-            <div class="spinner"></div>
-            <p>Plattenkiste wird durchwühlt...</p>
-        </div>
+        <div id="screen-mode" class="hidden">
+            <h3 id="selected-playlist-name">Playlist Name</h3>
+            <p>Wähle deinen Spielmodus:</p>
 
-        <div id="game-screen" class="hidden">
-            <div class="vinyl-wrapper">
-                <div class="vinyl" id="vinyl-disc">
-                    <div class="vinyl-label" id="vinyl-label-img"></div>
+            <button class="btn btn-primary" onclick="setupGame('mc')">
+                <i class="fas fa-list-ul"></i> Quiz (4 Auswahl)
+            </button>
+
+            <button class="btn btn-primary" onclick="setupGame('timeline')">
+                <i class="fas fa-stream"></i> Timeline (Ordnen)
+            </button>
+
+            <div id="timeline-settings" class="hidden" style="margin-top:15px; border-top:1px solid rgba(255,255,255,0.2); padding-top:15px;">
+                <p>Wie viele Karten zum Sieg?</p>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn btn-secondary" onclick="startTimeline(10)">10</button>
+                    <button class="btn btn-secondary" onclick="startTimeline(15)">15</button>
+                    <button class="btn btn-secondary" onclick="startTimeline(20)">20</button>
                 </div>
             </div>
 
-            <div class="controls">
-                <button id="play-btn" class="btn btn-primary btn-icon"><i class="fas fa-play"></i></button>
-            </div>
-
-            <p style="margin-bottom: 15px; font-size: 0.9rem;">Hör dir den Song an. Wann erschien er?</p>
-
-            <input type="number" id="year-input" placeholder="Jahr (z.B. 1984)" inputmode="numeric">
-            <button id="guess-btn" class="btn btn-primary">Raten</button>
-            <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 10px; border:none; background: transparent; font-size: 0.8rem;">Abbrechen</button>
+            <button class="btn btn-secondary" onclick="showScreen('screen-search')" style="margin-top:20px;">Zurück</button>
         </div>
 
-        <div id="result-screen" class="hidden">
-            <div id="result-content"></div>
-            <button id="next-btn" class="btn btn-primary" style="margin-top: 20px;">Nächster Song <i class="fas fa-arrow-right"></i></button>
-            <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 10px;">Playlist wechseln</button>
+        <div id="screen-game-timeline" class="hidden">
+            <div class="game-header">
+                <div class="score-display">Ziel: <span id="tl-target">10</span></div>
+                <div class="lives" id="tl-lives">❤️❤️❤️</div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:15px; background:rgba(0,0,0,0.2); padding:10px; border-radius:12px;">
+                <div class="vinyl-wrapper-sm" style="width:50px; height:50px; margin:0;">
+                    <div class="vinyl" id="tl-vinyl"><div class="vinyl-label"></div></div>
+                </div>
+                <div style="flex-grow:1; text-align:left;">
+                    <span style="font-size:0.8rem; display:block; color:#aaa;">Aktueller Song</span>
+                    <strong style="display:block;">Hör mal rein...</strong>
+                </div>
+                <button id="tl-play-btn" class="btn btn-primary" style="width:auto; padding:8px 15px;"><i class="fas fa-play"></i></button>
+            </div>
+
+            <p style="font-size:0.9rem; margin-bottom:10px;">Wo passt dieser Song hin?</p>
+
+            <div id="timeline-area" class="timeline-container">
+                </div>
+        </div>
+
+        <div id="screen-game-mc" class="hidden">
+            <div class="game-header">
+                <div class="score-display">Punkte: <span id="mc-score">0</span></div>
+                <button class="btn btn-secondary" style="width:auto; font-size:0.8rem;" onclick="location.reload()">X</button>
+            </div>
+
+            <div class="vinyl-wrapper-sm">
+                <div class="vinyl" id="mc-vinyl"><div class="vinyl-label"></div></div>
+            </div>
+
+            <button id="mc-play-btn" class="btn btn-primary" style="width:50%; margin: 10px auto;"><i class="fas fa-play"></i> Abspielen</button>
+
+            <p>Welcher Song ist das?</p>
+
+            <div id="mc-options" class="mc-grid">
+                </div>
+        </div>
+
+        <div id="loader" class="hidden modal-overlay">
+            <div style="text-align: center;">
+                <div class="spinner"></div>
+                <p style="margin-top:10px;">Lade Musik...</p>
+            </div>
+        </div>
+
+        <div id="game-over" class="hidden modal-overlay">
+            <div class="app-container" style="max-height:auto;">
+                <h2 id="go-title">Gewonnen!</h2>
+                <p id="go-msg" style="margin:20px 0;">Du hast alle Karten sortiert.</p>
+                <button class="btn btn-primary" onclick="location.reload()">Neues Spiel</button>
+            </div>
         </div>
 
         <audio id="audio-player"></audio>
+
     </div>
 
     <script>
-        /* --- 2. DIE LOGIK (JAVASCRIPT - Deezer JSONP) --- */
+        /* --- LOGIK & STATE --- */
 
-        // Empfohlene Playlists (IDs von Deezer)
-        const DEFAULT_PLAYLISTS = [
-            { id: '3155776842', title: '100% Hits', img: 'https://e-cdns-images.dzcdn.net/images/playlist/89f6dfc009b0b43d2c0024440f340864/250x250-000000-80-0-0.jpg', count: 100 },
-            { id: '1363560485', title: 'Best of 80s', img: 'https://e-cdns-images.dzcdn.net/images/playlist/73252538cb1235b2210a693c061d4b68/250x250-000000-80-0-0.jpg', count: 50 },
-            { id: '1292055625', title: 'Best of 90s', img: 'https://e-cdns-images.dzcdn.net/images/playlist/4492476579b441f77d33b49e17b2f673/250x250-000000-80-0-0.jpg', count: 60 },
-            { id: '1282495565', title: 'Best of 2000s', img: 'https://e-cdns-images.dzcdn.net/images/playlist/6959146dfa5390c9b0e27c7f3b890a2c/250x250-000000-80-0-0.jpg', count: 70 }
-        ];
+        const PROXY = 'https://api.allorigins.win/raw?url='; // Fallback
 
-        let currentPlaylistId = null;
-        let currentTrack = null;
-        let isPlaying = false;
+        let state = {
+            playlistId: null,
+            tracks: [],      // Alle Songs der Playlist
+            pool: [],        // Noch verfügbare Songs
+            currentTrack: null, // Der Song der gerade läuft
+            isPlaying: false,
 
-        // Elemente
-        const screens = {
-            start: document.getElementById('start-screen'),
-            loader: document.getElementById('loader'),
-            game: document.getElementById('game-screen'),
-            result: document.getElementById('result-screen')
+            // Timeline spezifisch
+            timeline: [],    // Array der platzierten Songs: {title, artist, year, img}
+            lives: 3,
+            targetScore: 10,
+
+            // MC spezifisch
+            score: 0
         };
+
         const els = {
-            searchInput: document.getElementById('search-input'),
-            searchBtn: document.getElementById('search-btn'),
-            list: document.getElementById('playlist-list'),
             audio: document.getElementById('audio-player'),
-            vinyl: document.getElementById('vinyl-disc'),
-            vinylLabel: document.getElementById('vinyl-label-img'),
-            playBtn: document.getElementById('play-btn'),
-            guessBtn: document.getElementById('guess-btn'),
-            yearInput: document.getElementById('year-input'),
-            resultContent: document.getElementById('result-content'),
-            nextBtn: document.getElementById('next-btn')
+            tlArea: document.getElementById('timeline-area'),
+            mcOptions: document.getElementById('mc-options')
         };
 
-        // Init
-        renderPlaylists(DEFAULT_PLAYLISTS);
+        // --- NAVIGATION ---
+        function showScreen(id) {
+            document.querySelectorAll('.app-container > div').forEach(el => {
+                if(el.id !== 'loader' && el.id !== 'game-over') el.classList.add('hidden');
+            });
+            document.getElementById(id).classList.remove('hidden');
+        }
 
-        // Events
-        els.searchBtn.addEventListener('click', searchPlaylists);
-        els.searchInput.addEventListener('keypress', (e) => e.key === 'Enter' && searchPlaylists());
-        els.playBtn.addEventListener('click', toggleAudio);
-        els.guessBtn.addEventListener('click', checkGuess);
-        els.nextBtn.addEventListener('click', loadNextSong);
+        function toggleLoader(show) {
+            document.getElementById('loader').classList.toggle('hidden', !show);
+        }
 
-        // --- FUNKTIONEN ---
-
-        // 1. JSONP Helper (Der magische Schlüssel für GitHub Pages)
+        // --- 1. PLAYLIST HANDLING (Deezer JSONP) ---
         function fetchDeezer(url) {
             return new Promise((resolve, reject) => {
                 const script = document.createElement('script');
-                const cbName = 'dz_' + Math.round(Math.random() * 100000);
-
-                window[cbName] = (data) => {
-                    delete window[cbName];
-                    document.body.removeChild(script);
-                    resolve(data);
-                };
-
-                const sep = url.includes('?') ? '&' : '?';
-                script.src = url + sep + 'output=jsonp&callback=' + cbName;
-                script.onerror = () => {
-                    delete window[cbName];
-                    document.body.removeChild(script);
-                    reject(new Error("Deezer API Fehler"));
-                };
+                const cbName = 'dz_' + Math.round(Math.random() * 1000000);
+                window[cbName] = (data) => { delete window[cbName]; document.body.removeChild(script); resolve(data); };
+                script.src = url + (url.includes('?') ? '&' : '?') + 'output=jsonp&callback=' + cbName;
+                script.onerror = () => { delete window[cbName]; document.body.removeChild(script); reject(); };
                 document.body.appendChild(script);
             });
         }
 
-        // 2. Playlists suchen
         async function searchPlaylists() {
-            const query = els.searchInput.value.trim();
+            const query = document.getElementById('search-input').value;
             if(!query) return;
-
-            els.list.innerHTML = '<p style="color:white; opacity:0.7;">Suche...</p>';
+            document.getElementById('playlist-list').innerHTML = '<p>Suche...</p>';
 
             try {
                 const data = await fetchDeezer(`https://api.deezer.com/search/playlist?q=${encodeURIComponent(query)}`);
-                if(data.data) {
-                    const results = data.data.map(p => ({
-                        id: p.id, title: p.title, img: p.picture_medium, count: p.nb_tracks
-                    }));
-                    renderPlaylists(results);
-                }
+                const html = data.data.map(p => `
+                    <div class="playlist-item" onclick="selectPlaylist('${p.id}', '${p.title.replace(/'/g, "")}')">
+                        <img src="${p.picture_medium}">
+                        <div class="playlist-info"><h4>${p.title}</h4><span>${p.nb_tracks} Songs</span></div>
+                    </div>
+                `).join('');
+                document.getElementById('playlist-list').innerHTML = html;
+            } catch(e) { document.getElementById('playlist-list').innerHTML = 'Fehler.'; }
+        }
+        document.getElementById('search-btn').addEventListener('click', searchPlaylists);
+
+        async function selectPlaylist(id, name) {
+            state.playlistId = id;
+            document.getElementById('selected-playlist-name').innerText = name;
+
+            toggleLoader(true);
+            try {
+                // Hole bis zu 300 Songs für genug Futter
+                const data = await fetchDeezer(`https://api.deezer.com/playlist/${id}/tracks?limit=300`);
+                // Filtern: Nur Songs mit Preview und Album-ID
+                state.tracks = data.data.filter(t => t.preview && t.album && t.album.id);
+
+                if(state.tracks.length < 10) throw new Error("Zu wenige Songs in dieser Playlist.");
+
+                // Shuffle Pool
+                state.pool = [...state.tracks].sort(() => 0.5 - Math.random());
+
+                toggleLoader(false);
+                showScreen('screen-mode');
             } catch(e) {
-                els.list.innerHTML = '<p>Fehler bei der Suche.</p>';
+                toggleLoader(false);
+                alert("Konnte Playlist nicht laden: " + e.message);
             }
         }
 
-        function renderPlaylists(items) {
-            els.list.innerHTML = '';
-            items.forEach(p => {
-                const div = document.createElement('div');
-                div.className = 'playlist-item';
-                div.innerHTML = `
-                    <img src="${p.img}" alt="">
-                    <div class="playlist-info">
-                        <h4>${p.title}</h4>
-                        <span>${p.count} Songs</span>
-                    </div>
-                `;
-                div.onclick = () => startGame(p.id);
-                els.list.appendChild(div);
+        // --- 2. GAME SETUP ---
+        function setupGame(mode) {
+            if(mode === 'timeline') {
+                document.getElementById('timeline-settings').classList.remove('hidden');
+            } else {
+                startMC();
+            }
+        }
+
+        // --- AUDIO ENGINE ---
+        function playTrack(previewUrl, vinylId, btnId) {
+            if(state.isPlaying && els.audio.src === previewUrl) {
+                els.audio.pause();
+                state.isPlaying = false;
+                document.getElementById(vinylId).classList.remove('spinning');
+                document.getElementById(btnId).innerHTML = '<i class="fas fa-play"></i>';
+                return;
+            }
+
+            els.audio.src = previewUrl;
+            els.audio.play();
+            state.isPlaying = true;
+            document.getElementById(vinylId).classList.add('spinning');
+            document.getElementById(btnId).innerHTML = '<i class="fas fa-pause"></i>';
+
+            // Auto-Stop
+            els.audio.onended = () => {
+                state.isPlaying = false;
+                document.getElementById(vinylId).classList.remove('spinning');
+                document.getElementById(btnId).innerHTML = '<i class="fas fa-play"></i>';
+            };
+        }
+
+        function stopAudio() {
+            els.audio.pause();
+            state.isPlaying = false;
+            document.querySelectorAll('.vinyl').forEach(v => v.classList.remove('spinning'));
+            document.querySelectorAll('.btn-primary').forEach(b => {
+                if(b.innerHTML.includes('fa-pause')) b.innerHTML = '<i class="fas fa-play"></i>';
             });
         }
 
-        // 3. Spiel starten
-        function startGame(id) {
-            currentPlaylistId = id;
-            loadNextSong();
+        // --- 3. TIMELINE MODE ---
+        async function startTimeline(target) {
+            state.targetScore = target;
+            state.lives = 3;
+            state.timeline = [];
+            updateLivesUI();
+            document.getElementById('tl-target').innerText = target;
+
+            toggleLoader(true);
+            // 1. Startkarte holen und platzieren
+            const startSong = await getSongDetails(state.pool.pop());
+            state.timeline.push(startSong);
+
+            // 2. Nächsten Song zum Raten vorbereiten
+            await nextTimelineRound();
+            toggleLoader(false);
+            showScreen('screen-game-timeline');
+            renderTimeline();
         }
 
-        async function loadNextSong() {
-            showScreen('loader');
-            els.yearInput.value = '';
-            isPlaying = false;
-            updatePlayIcon();
+        async function nextTimelineRound() {
+            if(state.pool.length === 0) { endGame(true, "Keine Songs mehr!"); return; }
+            const rawTrack = state.pool.pop();
+            const song = await getSongDetails(rawTrack);
+            state.currentTrack = song;
 
+            // UI Reset
+            document.querySelector('#tl-vinyl .vinyl-label').style.backgroundImage = `url(${song.cover})`;
+            document.getElementById('tl-play-btn').onclick = () => playTrack(song.preview, 'tl-vinyl', 'tl-play-btn');
+
+            // Autoplay optional
+            playTrack(song.preview, 'tl-vinyl', 'tl-play-btn');
+        }
+
+        async function getSongDetails(track) {
+            // Jahr holen via Album Details (Deezer Track hat oft kein Release Date)
             try {
-                // Tracklist holen
-                const tracksData = await fetchDeezer(`https://api.deezer.com/playlist/${currentPlaylistId}/tracks?limit=100`);
-                if(!tracksData.data || tracksData.data.length === 0) throw new Error("Keine Songs");
-
-                // Zufälligen gültigen Song suchen (einer mit Preview & Album)
-                let valid = false;
-                let track;
-                let attempts = 0;
-
-                while(!valid && attempts < 20) {
-                    track = tracksData.data[Math.floor(Math.random() * tracksData.data.length)];
-                    if(track.preview && track.album && track.album.id) valid = true;
-                    attempts++;
-                }
-                if(!valid) throw new Error("Keine abspielbaren Songs gefunden.");
-
-                // Album Details holen (für das genaue Jahr)
-                const albumData = await fetchDeezer(`https://api.deezer.com/album/${track.album.id}`);
-
-                currentTrack = {
+                const alb = await fetchDeezer(`https://api.deezer.com/album/${track.album.id}`);
+                return {
+                    id: track.id,
                     title: track.title,
                     artist: track.artist.name,
-                    cover: track.album.cover_xl, // Hohe Auflösung für Ergebnis
-                    preview: track.preview,
-                    year: parseInt(albumData.release_date.split('-')[0])
+                    year: parseInt(alb.release_date.split('-')[0]),
+                    cover: track.album.cover_medium,
+                    preview: track.preview
                 };
-
-                // Player setup
-                els.audio.src = currentTrack.preview;
-                els.audio.volume = 0.5;
-
-                // Vinyl Label setzen (kleines Bild)
-                els.vinylLabel.style.backgroundImage = `url(${track.album.cover_small})`;
-
-                showScreen('game');
-                toggleAudio(); // Autoplay
-
             } catch(e) {
-                alert("Fehler: " + e.message);
-                showScreen('start');
+                // Fallback wenn API failt
+                return { ...track, year: 2000, cover: '', preview: '' };
             }
         }
 
-        // 4. Audio Steuerung
-        function toggleAudio() {
-            if(isPlaying) {
-                els.audio.pause();
-                els.vinyl.classList.remove('spinning');
+        function renderTimeline() {
+            const container = els.tlArea;
+            container.innerHTML = '';
+
+            // Button GANZ OBEN (Vor dem ersten Song)
+            container.appendChild(createInsertBtn(0));
+
+            state.timeline.forEach((song, index) => {
+                // Die Karte
+                const card = document.createElement('div');
+                card.className = 'timeline-card';
+                card.innerHTML = `
+                    <div class="timeline-year">${song.year}</div>
+                    <img src="${song.cover}" style="width:40px; height:40px; border-radius:4px;">
+                    <div class="timeline-info">
+                        <strong>${song.title}</strong><br>${song.artist}
+                    </div>
+                `;
+                container.appendChild(card);
+
+                // Button DANACH
+                container.appendChild(createInsertBtn(index + 1));
+            });
+        }
+
+        function createInsertBtn(index) {
+            const btn = document.createElement('div');
+            btn.className = 'insert-btn';
+            btn.innerHTML = '<i class="fas fa-plus"></i> Hier einfügen';
+            btn.onclick = () => checkTimelinePlacement(index);
+            return btn;
+        }
+
+        function checkTimelinePlacement(index) {
+            stopAudio();
+            const currentYear = state.currentTrack.year;
+
+            // Logik:
+            // Index 0: muss <= erster Song sein
+            // Index Max: muss >= letzter Song sein
+            // Index X: muss >= Song[X-1] UND <= Song[X] sein
+
+            let valid = true;
+            const prevSong = state.timeline[index - 1];
+            const nextSong = state.timeline[index];
+
+            if(prevSong && currentYear < prevSong.year) valid = false;
+            if(nextSong && currentYear > nextSong.year) valid = false;
+
+            if(valid) {
+                // Richtig!
+                state.timeline.splice(index, 0, state.currentTrack);
+                // Gewinn Check
+                if(state.timeline.length >= state.targetScore) {
+                    endGame(true, `Du hast ${state.targetScore} Songs korrekt sortiert!`);
+                } else {
+                    renderTimeline();
+                    alert(`Korrekt! (${state.currentTrack.year})`);
+                    toggleLoader(true);
+                    nextTimelineRound().then(() => toggleLoader(false));
+                }
             } else {
-                els.audio.play().catch(e => console.log("Autoplay blockiert"));
-                els.vinyl.classList.add('spinning');
+                // Falsch!
+                state.lives--;
+                updateLivesUI();
+                alert(`Falsch! Es war ${state.currentTrack.year}.`);
+
+                if(state.lives <= 0) {
+                    endGame(false, "Du hast keine Leben mehr.");
+                } else {
+                    // Song wird weggeworfen, neuer Song
+                    toggleLoader(true);
+                    nextTimelineRound().then(() => toggleLoader(false));
+                }
             }
-            isPlaying = !isPlaying;
-            updatePlayIcon();
         }
 
-        function updatePlayIcon() {
-            els.playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        function updateLivesUI() {
+            let hearts = "";
+            for(let i=0; i<state.lives; i++) hearts += "❤️";
+            for(let i=state.lives; i<3; i++) hearts += "🖤";
+            document.getElementById('tl-lives').innerHTML = hearts;
         }
 
-        // 5. Auswertung
-        function checkGuess() {
-            const userYear = parseInt(els.yearInput.value);
-            if(!userYear) return;
-
-            if(isPlaying) toggleAudio(); // Stop Music
-
-            const diff = Math.abs(currentTrack.year - userYear);
-            let color = '#e74c3c'; // Rot
-            let msg = 'Leider falsch';
-
-            if(diff === 0) { color = '#2ecc71'; msg = 'PERFEKT!'; } // Grün
-            else if(diff <= 2) { color = '#f1c40f'; msg = 'Knapp daneben!'; } // Gelb
-
-            els.resultContent.innerHTML = `
-                <div class="result-card">
-                    <h2 style="color:${color}">${msg}</h2>
-                    <img src="${currentTrack.cover}" class="cover-large">
-                    <h3>${currentTrack.title}</h3>
-                    <p style="opacity:0.8">${currentTrack.artist}</p>
-                    <span class="year-big" style="color:${color}">${currentTrack.year}</span>
-                    <p>Dein Tipp: ${userYear} <span style="font-size:0.8rem">(${diff === 0 ? 'Volltreffer' : diff + ' Jahre daneben'})</span></p>
-                </div>
-            `;
-
-            showScreen('result');
+        // --- 4. MULTIPLE CHOICE MODE ---
+        function startMC() {
+            state.score = 0;
+            document.getElementById('mc-score').innerText = 0;
+            showScreen('screen-game-mc');
+            nextMCRound();
         }
 
-        function showScreen(name) {
-            Object.values(screens).forEach(s => s.classList.add('hidden'));
-            screens[name].classList.remove('hidden');
+        async function nextMCRound() {
+            if(state.pool.length < 4) { endGame(true, "Playlist zu Ende!"); return; }
+
+            // 1 Target, 3 Decoys
+            const targetRaw = state.pool.pop();
+            const decoys = [];
+            while(decoys.length < 3) {
+                const d = state.pool[Math.floor(Math.random() * state.pool.length)];
+                if(d.id !== targetRaw.id && !decoys.includes(d)) decoys.push(d);
+            }
+
+            state.currentTrack = {
+                title: targetRaw.title,
+                artist: targetRaw.artist.name,
+                preview: targetRaw.preview,
+                cover: targetRaw.album.cover_medium
+            };
+
+            // Player Setup
+            stopAudio();
+            document.querySelector('#mc-vinyl .vinyl-label').style.backgroundImage = `url(${state.currentTrack.cover})`; // Zeige Cover schon? Hitster zeigt es nicht.
+            // In MC ist es ok das Cover zu zeigen, da Titel oft nicht drauf steht. Oder wir nutzen ein neutrales Bild.
+            // Besser: Neutrales Bild beim Raten.
+            document.querySelector('#mc-vinyl .vinyl-label').style.backgroundImage = 'none';
+            document.querySelector('#mc-vinyl .vinyl-label').style.backgroundColor = '#333';
+
+            document.getElementById('mc-play-btn').onclick = () => playTrack(state.currentTrack.preview, 'mc-vinyl', 'mc-play-btn');
+            playTrack(state.currentTrack.preview, 'mc-vinyl', 'mc-play-btn');
+
+            // Optionen bauen
+            const options = [targetRaw, ...decoys].sort(() => 0.5 - Math.random());
+            els.mcOptions.innerHTML = '';
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-secondary mc-btn';
+                btn.innerText = opt.title; // Wir raten Titel
+                btn.onclick = () => checkMCGuess(btn, opt.id === targetRaw.id);
+                els.mcOptions.appendChild(btn);
+            });
+        }
+
+        function checkMCGuess(btn, isCorrect) {
+            stopAudio();
+            // Reveal Cover
+            document.querySelector('#mc-vinyl .vinyl-label').style.backgroundImage = `url(${state.currentTrack.cover})`;
+
+            if(isCorrect) {
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-success');
+                state.score++;
+                document.getElementById('mc-score').innerText = state.score;
+                setTimeout(nextMCRound, 1500);
+            } else {
+                btn.classList.remove('btn-secondary');
+                btn.classList.add('btn-danger');
+                // Richtige anzeigen
+                Array.from(els.mcOptions.children).forEach(b => {
+                    if(b.innerText === state.currentTrack.title) b.classList.add('btn-success');
+                });
+                // Game Over bei MC? Oder einfach weitermachen? Machen wir Game Over bei Fehler für Highscore-Jagd.
+                setTimeout(() => endGame(false, `Falsch! Score: ${state.score}`), 2000);
+            }
+        }
+
+        // --- END GAME ---
+        function endGame(win, msg) {
+            stopAudio();
+            document.getElementById('go-title').innerText = win ? "Spiel vorbei!" : "Game Over";
+            document.getElementById('go-msg').innerText = msg;
+            document.getElementById('game-over').classList.remove('hidden');
         }
 
     </script>
