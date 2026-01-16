@@ -4,7 +4,6 @@
 ### Die ultimative Musik-Timeline & Highscore Challenge
 
 ![Deezster Logo](logo.png)
-*(Füge hier dein Logo ein oder lösche die Zeile)*
 
 [**🔴 LIVE DEMO HIER KLICKEN**](https://bastiancurth.github.io/deezster/)
 
@@ -64,23 +63,6 @@ Das Projekt ist "Serverless" und läuft zu 100% im Client (Browser).
     * Wähle unter "Branch" `main` (oder `master`) und speichere.
 4.  **Fertig:** Nach ca. 1 Minute ist dein Spiel unter `https://deinuser.github.io/deinrepo/` erreichbar.
 
----
-
-## 🤓 Für Entwickler: Der "Remaster-Fix"
-
-Ein häufiges Problem bei Musik-APIs ist, dass bei "Best Of" Alben das Jahr der Compilation (z.B. 2010) statt des Songs (z.B. 1975) geliefert wird.
-
-Deezster 2.3 löst das durch einen **ISRC-Check**:
-1.  Die App holt das Album-Datum.
-2.  Sie prüft den ISRC-Code des Tracks (Zeichen 6 & 7 stehen oft für das Jahr).
-3.  Sie vergleicht beide und wählt intelligent das **ältere, plausible Jahr** aus.
-
-```javascript
-// Beispiel Logik
-if (isrcYear < albumYear && isrcYear > 1900) {
-    finalYear = isrcYear; // Nimm das echte Aufnahmejahr!
-}
-
 ## ⚠️ Wichtiger Hinweis zur API
 
 Dieses Projekt nutzt die *öffentliche* Deezer API über einen *öffentlichen* CORS-Proxy.
@@ -98,3 +80,20 @@ Dieses Projekt nutzt die *öffentliche* Deezer API über einen *öffentlichen* C
 <div align="center">
 Erstellt mit ❤️ und viel Musik.
 </div>
+
+---
+
+## 🤓 Für Entwickler: Der "Remaster-Fix"
+
+Ein häufiges Problem bei Musik-APIs ist, dass bei "Best Of" Alben das Jahr der Compilation (z.B. 2010) statt des Songs (z.B. 1975) geliefert wird.
+
+Deezster 2.3 löst das durch einen **ISRC-Check**:
+1.  Die App holt das Album-Datum.
+2.  Sie prüft den ISRC-Code des Tracks (Zeichen 6 & 7 stehen oft für das Jahr).
+3.  Sie vergleicht beide und wählt intelligent das **ältere, plausible Jahr** aus.
+
+```javascript
+// Beispiel Logik
+if (isrcYear < albumYear && isrcYear > 1900) {
+    finalYear = isrcYear; // Nimm das echte Aufnahmejahr!
+}
