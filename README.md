@@ -6,7 +6,7 @@
 ![Deezster Logo](logo.png)
 *(Füge hier dein Logo ein oder lösche die Zeile)*
 
-[**🔴 LIVE DEMO HIER KLICKEN**](https://DEIN-USERNAME.github.io/DEIN-REPO-NAME/)
+[**🔴 LIVE DEMO HIER KLICKEN**](https://bastiancurth.github.io/deezster/)
 
 </div>
 
